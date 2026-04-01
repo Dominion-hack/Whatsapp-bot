@@ -1,18 +1,15 @@
 {
   "name": "temple_md_bot",
   "version": "1.0.0",
-  "description": "💞 TEMPLE_MD WhatsApp Bot with full commands and pairing QR",
+  "description": "WhatsApp Bot with pairing panel",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
-  "author": "TEMPLE_MD",
-  "license": "MIT",
   "dependencies": {
-    "@adiwajshing/baileys": "^5.0.2",
+    "@adiwajshing/baileys": "^5.0.5",
     "express": "^4.18.2",
-    "qrcode": "^1.5.1",
-    "fs-extra": "^11.1.1"
+    "qrcode": "^1.5.1"
   },
   "engines": {
     "node": ">=18"
