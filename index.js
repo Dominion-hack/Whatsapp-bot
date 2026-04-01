@@ -5,6 +5,23 @@ const fs = require('fs');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const qrcode = require('qrcode');
+
+// Endpoint to generate QR for a user
+app.get('/pair', async (req, res) => {
+    const number = req.query.number;
+    if(!number) return res.json({error:"No number provided"});
+    
+    try {
+        // Generate a fake pairing QR for demo
+        // In real scenario, use Baileys QR from sock.ev.on('connection.update')
+        const demoQR = `WHATSAPP_PAIR:${number}:${Date.now()}`; 
+        const qrDataUrl = await qrcode.toDataURL(demoQR);
+        res.json({ qr: qrDataUrl });
+    } catch(e){
+        res.json({ error: e.message });
+    }
+});
 const prefix = '.';
 const owners = ['+2348056408043'];
 
