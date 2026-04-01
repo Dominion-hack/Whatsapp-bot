@@ -1,0 +1,17 @@
+{
+  "name": "temple_md_bot",
+  "version": "1.0.0",
+  "description": "WhatsApp bot",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@adiwajshing/baileys": "git+https://github.com/adiwajshing/Baileys.git",
+    "express": "^4.18.2",
+    "qrcode": "^1.5.1"
+  }
+}
