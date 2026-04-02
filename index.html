@@ -3,38 +3,89 @@
 <head>
 <meta charset="UTF-8">
 <title>💞 TEMPLE_MD BOT Pairing 💞</title>
+
 <style>
-    body { font-family: sans-serif; text-align: center; padding-top: 50px; background: #fdf6f0; }
-    h1 { color: #ff3399; }
-    input, button { padding: 10px; margin: 10px; font-size: 16px; border-radius: 5px; }
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding-top: 50px;
+        background: linear-gradient(135deg, #ffe6f0, #fff5f9);
+    }
+
+    h1 {
+        color: #ff3399;
+    }
+
+    button {
+        padding: 12px 20px;
+        margin: 15px;
+        font-size: 16px;
+        border-radius: 8px;
+        border: none;
+        background: #ff3399;
+        color: white;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #cc0077;
+    }
+
+    #status {
+        margin-top: 15px;
+        font-weight: bold;
+    }
+
+    #qr {
+        display: none;
+        margin-top: 20px;
+        width: 280px;
+        height: 280px;
+        border: 5px solid #ff3399;
+        border-radius: 10px;
+    }
 </style>
 </head>
-<body>
-<h1>💞 TEMPLE_MD BOT Pairing 💞</h1>
-<p>Enter your WhatsApp number to get a pairing code:</p>
-<input type="text" id="number" placeholder="e.g. +2348012345678" />
-<button onclick="getCode()">Get Code</button>
 
-<p id="status"></p>
-<img id="qr" src="" alt="QR Code" style="display:none; margin-top:20px; width:300px;height:300px;"/>
+<body>
+
+<h1>💞 TEMPLE_MD BOT Pairing 💞</h1>
+<p>Click below to connect your WhatsApp</p>
+
+<button onclick="startQR()">Connect WhatsApp</button>
+
+<p id="status">⚡ Waiting...</p>
+<img id="qr" />
 
 <script>
-async function getCode() {
-    const number = document.getElementById('number').value;
-    if(!number) return alert("Enter your number!");
-    document.getElementById('status').innerText = "⏳ Generating pairing code...";
-    
-    const res = await fetch(`/pair?number=${encodeURIComponent(number)}`);
-    const data = await res.json();
-    
-    if(data.qr){
-        document.getElementById('qr').src = data.qr;
-        document.getElementById('qr').style.display = "block";
-        document.getElementById('status').innerText = `💞 Scan this QR with WhatsApp number ${number} to pair!`;
-    } else {
-        document.getElementById('status').innerText = "❌ Something went wrong!";
+let interval;
+
+async function fetchQR() {
+    try {
+        const res = await fetch('/qr');
+        const data = await res.json();
+
+        if (data.qr) {
+            document.getElementById('qr').src = data.qr;
+            document.getElementById('qr').style.display = "block";
+            document.getElementById('status').innerText = "📲 Scan QR with WhatsApp";
+        } else {
+            document.getElementById('status').innerText = "⏳ Waiting for QR...";
+        }
+    } catch (err) {
+        document.getElementById('status').innerText = "❌ Error loading QR";
     }
 }
+
+function startQR() {
+    document.getElementById('status').innerText = "⏳ Generating QR...";
+
+    fetchQR();
+
+    clearInterval(interval);
+    interval = setInterval(fetchQR, 3000);
+}
 </script>
+
 </body>
 </html>
