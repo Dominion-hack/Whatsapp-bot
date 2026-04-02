@@ -1,8 +1,10 @@
-const { default: makeWASocket, useMultiFileAuthState } = require('@adiwajshing/baileys');
+const makeWASocket = require('@adiwajshing/baileys').default;
+const { useMultiFileAuthState, DisconnectReason } = require('@adiwajshing/baileys');
 const express = require('express');
 const qrcode = require('qrcode');
 const fs = require('fs');
-
+const P = require('pino');
+ 
 const app = express();
 const PORT = process.env.PORT || 3000;
 const qrcode = require('qrcode');
