@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>💞 TEMPLE_MD BOT Pairing 💞</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding-top: 50px; background: #fdf6f0; }
+        h1 { color: #ff3399; }
+        img { margin-top: 20px; width: 300px; height: 300px; }
+    </style>
+</head>
+<body>
+    <h1>💞 TEMPLE_MD BOT Pairing 💞</h1>
+    <p>Scan this QR with your WhatsApp to pair your bot:</p>
+    <img id="qr" src="" alt="QR Code" />
+    <p>Once paired, your bot will be online and you can use commands on WhatsApp.</p>
+
+    <script>
+        async function fetchQR() {
+            try {
+                const res = await fetch('/qr');
+                const data = await res.json();
+                if (data.qr) document.getElementById('qr').src = data.qr;
+            } catch(e){ console.log(e); }
+            setTimeout(fetchQR, 2000); // refresh QR every 2 seconds
+        }
+        fetchQR();
+    </script>
+</body>
+</html>
